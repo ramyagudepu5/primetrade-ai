@@ -8,7 +8,10 @@ if (!fs.existsSync(dbDir)) {
     fs.mkdirSync(dbDir, { recursive: true });
 }
 
-const dbPath = path.join(dbDir, 'primetrade.db');
+// Use different database path for Vercel
+const dbPath = process.env.VERCEL 
+    ? '/tmp/primetrade.db' 
+    : path.join(dbDir, 'primetrade.db');
 
 // Create database connection
 const db = new sqlite3.Database(dbPath, (err) => {

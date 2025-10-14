@@ -6,7 +6,9 @@
   "scripts": {
     "start": "node src/server.js",
     "dev": "nodemon src/server.js",
-    "test": "jest"
+    "test": "jest",
+    "build": "echo 'No build step required'",
+    "vercel-build": "echo 'Vercel build completed'"
   },
   "keywords": ["nodejs", "express", "jwt", "sqlite", "rest-api"],
   "author": "Primetrade.ai",
@@ -28,5 +30,8 @@
   "devDependencies": {
     "nodemon": "^3.0.2",
     "jest": "^29.7.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   }
 }
