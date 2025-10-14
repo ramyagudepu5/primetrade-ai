@@ -328,4 +328,5 @@ For support, email [support@primetrade.ai](mailto:support@primetrade.ai)
 **Note**: This project is created for the Primetrade.ai Backend Developer (Intern) Assignment. All requirements have been implemented with additional features for a production-ready application.
 #   p r i m e t r a d e - a i 
  
+
  
