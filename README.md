@@ -1,3 +1,23 @@
+# 🚀 Primetrade.ai Backend Developer Assignment  
+
+![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=node.js&logoColor=white)
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![SQLite](https://img.shields.io/badge/SQLite-003B57?style=for-the-badge&logo=sqlite&logoColor=white)
+![Express](https://img.shields.io/badge/Express-000000?style=for-the-badge&logo=express&logoColor=white)
+
+## 🧰 Tech Stack
+- *Frontend:* React.js  
+- *Backend:* Node.js, Express.js  
+- *Database:* SQLite  
+- *Authentication:* JWT  
+- *Security:* Helmet, CORS, Rate Limiting
+
+## 🖼 UI Preview (Optional)
+![Login Page](docs/images/login.png)
+![Dashboard](docs/images/dashboard.png)
+![Tasks Page](docs/images/tasks.png)
+
+
 # Primetrade.ai Backend Developer Assignment
 
 A scalable REST API with authentication & role-based access control built with Node.js and React.js.
@@ -306,5 +326,6 @@ For support, email [support@primetrade.ai](mailto:support@primetrade.ai)
 ---
 
 **Note**: This project is created for the Primetrade.ai Backend Developer (Intern) Assignment. All requirements have been implemented with additional features for a production-ready application.
-#   p r i m e t r a d e - a i  
+#   p r i m e t r a d e - a i 
+ 
  
