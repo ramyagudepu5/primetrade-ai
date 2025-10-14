@@ -2,16 +2,18 @@ const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
 const fs = require('fs');
 
-// Ensure database directory exists
-const dbDir = path.join(__dirname, '../../database');
-if (!fs.existsSync(dbDir)) {
-    fs.mkdirSync(dbDir, { recursive: true });
-}
-
 // Use different database path for Vercel
 const dbPath = process.env.VERCEL 
     ? '/tmp/primetrade.db' 
-    : path.join(dbDir, 'primetrade.db');
+    : path.join(__dirname, '../../database/primetrade.db');
+
+// Ensure database directory exists (only for local development)
+if (!process.env.VERCEL) {
+    const dbDir = path.join(__dirname, '../../database');
+    if (!fs.existsSync(dbDir)) {
+        fs.mkdirSync(dbDir, { recursive: true });
+    }
+}
 
 // Create database connection
 const db = new sqlite3.Database(dbPath, (err) => {
@@ -69,6 +71,12 @@ function initializeTables() {
 
 // Create default admin user
 function createDefaultAdmin() {
+    // Skip admin creation in Vercel to avoid database issues
+    if (process.env.VERCEL) {
+        console.log('Skipping admin user creation in Vercel environment');
+        return;
+    }
+    
     const bcrypt = require('bcryptjs');
     const adminPassword = bcrypt.hashSync('admin123', 10);
     
