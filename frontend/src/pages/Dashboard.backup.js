@@ -4,7 +4,6 @@ import { tasksAPI } from '../services/api';
 import toast from 'react-hot-toast';
 import TaskForm from '../components/TaskForm';
 import TaskList from '../components/TaskList';
-import Stats from './Stats';
 
 const Dashboard = () => {
   const { user, isAdmin } = useAuth();
@@ -12,7 +11,6 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true);
   const [showTaskForm, setShowTaskForm] = useState(false);
   const [editingTask, setEditingTask] = useState(null);
-  const [activeTab, setActiveTab] = useState('tasks');
 
   useEffect(() => {
     fetchTasks();
@@ -78,78 +76,74 @@ const Dashboard = () => {
       <div className="d-flex justify-content-between align-items-center mb-3">
         <div>
           <h1>Dashboard</h1>
-          <p>Welcome back, {user?.username}! Manage your tasks and view statistics.</p>
+          <p>Welcome back, {user?.username}! Manage your tasks here.</p>
         </div>
-        {activeTab === 'tasks' && (
-          <button 
-            className="btn btn-primary"
-            onClick={() => setShowTaskForm(true)}
-          >
-            Add New Task
-          </button>
-        )}
+        <button 
+          className="btn btn-primary"
+          onClick={() => setShowTaskForm(true)}
+        >
+          Add New Task
+        </button>
       </div>
 
-      {/* Tab Navigation */}
-      <div style={{ marginBottom: '20px' }}>
-        <div style={{ 
-          display: 'flex', 
-          borderBottom: '2px solid #eee',
-          gap: '0'
-        }}>
-          <button
-            onClick={() => setActiveTab('tasks')}
-            style={{
-              padding: '12px 24px',
-              border: 'none',
-              backgroundColor: activeTab === 'tasks' ? '#007bff' : 'transparent',
-              color: activeTab === 'tasks' ? 'white' : '#666',
-              borderRadius: '8px 8px 0 0',
-              cursor: 'pointer',
-              fontWeight: '500',
-              fontSize: '16px',
-              transition: 'all 0.3s ease'
-            }}
-          >
-            📋 Tasks ({tasks.length})
-          </button>
-          <button
-            onClick={() => setActiveTab('stats')}
-            style={{
-              padding: '12px 24px',
-              border: 'none',
-              backgroundColor: activeTab === 'stats' ? '#007bff' : 'transparent',
-              color: activeTab === 'stats' ? 'white' : '#666',
-              borderRadius: '8px 8px 0 0',
-              cursor: 'pointer',
-              fontWeight: '500',
-              fontSize: '16px',
-              transition: 'all 0.3s ease'
-            }}
-          >
-            📊 Statistics
-          </button>
+      <div className="row">
+        <div className="col-md-8">
+          <div className="card">
+            <div className="card-header">
+              <h3 className="card-title">Your Tasks ({tasks.length})</h3>
+            </div>
+            <div className="card-body">
+              <TaskList 
+                tasks={tasks}
+                onEdit={setEditingTask}
+                onDelete={handleDeleteTask}
+                isAdmin={isAdmin()}
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className="col-md-4">
+          <div className="card">
+            <div className="card-header">
+              <h3 className="card-title">Quick Stats</h3>
+            </div>
+            <div className="card-body">
+              <div className="mb-2">
+                <strong>Total Tasks:</strong> {tasks.length}
+              </div>
+              <div className="mb-2">
+                <strong>Pending:</strong> {tasks.filter(t => t.status === 'pending').length}
+              </div>
+              <div className="mb-2">
+                <strong>In Progress:</strong> {tasks.filter(t => t.status === 'in-progress').length}
+              </div>
+              <div className="mb-2">
+                <strong>Completed:</strong> {tasks.filter(t => t.status === 'completed').length}
+              </div>
+              <div className="mb-2">
+                <strong>High Priority:</strong> {tasks.filter(t => t.priority === 'high').length}
+              </div>
+            </div>
+          </div>
+
+          {isAdmin() && (
+            <div className="card mt-3">
+              <div className="card-header">
+                <h3 className="card-title">Admin Panel</h3>
+              </div>
+              <div className="card-body">
+                <p>You have admin privileges. You can:</p>
+                <ul>
+                  <li>View all users' tasks</li>
+                  <li>Manage user accounts</li>
+                  <li>Access admin-only features</li>
+                </ul>
+              </div>
+            </div>
+          )}
         </div>
       </div>
-
-      {/* Tab Content */}
-      {activeTab === 'tasks' ? (
-        <div className="card">
-          <div className="card-header">
-            <h3 className="card-title">Your Tasks ({tasks.length})</h3>
-          </div>
-          <div className="card-body">
-            <TaskList 
-              tasks={tasks}
-              onEdit={setEditingTask}
-              onDelete={handleDeleteTask}
-              isAdmin={isAdmin()}
-            />
-          </div>
-        </div>
-      ) : (
-        <Stats />
-      )}
 
       {showTaskForm && (
         <TaskForm
