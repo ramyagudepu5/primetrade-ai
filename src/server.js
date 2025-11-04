@@ -26,9 +26,11 @@ app.use(limiter);
 
 // CORS configuration
 app.use(cors({
-    origin: process.env.NODE_ENV === 'production' 
-        ? ['https://primetrade-task-assignment.netlify.app'] 
-        : ['http://localhost:3000', 'http://localhost:3001'],
+    origin: [
+        'https://primetrade-task-assignment.netlify.app',
+        'http://localhost:3000', 
+        'http://localhost:3001'
+    ],
     credentials: true
 }));
 
