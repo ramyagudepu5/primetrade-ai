@@ -4,7 +4,7 @@ import { tasksAPI } from '../services/api';
 import toast from 'react-hot-toast';
 
 const Stats = () => {
-  const { user, isAdmin } = useAuth();
+  const { isAdmin } = useAuth();
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
 
